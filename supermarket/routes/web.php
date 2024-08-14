@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\CalculatorController;
+use App\Http\Controllers\CategoriesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Route\RouteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,16 +15,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/calculator', function () {
     return view('calculator');
 });
-// Route::any(
-//     '/calculator_2',
-//     [
-//         'as' => 'calculator_name',
-//         'uses' => 'CalculatorController@showCalculator',
-//     ]
-// );
-// neu dung voi 2 muc dich thi dung any , chu y  khi dung post can co them 1 token de laravel check ???
 
-// Route::any(
-//     '/calculator2',
-//     [CalculatorController::class, 'showCalculator',]
-// );
+
+// client route
+Route::prefix('categories')->group(function () {
+    Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
+    Route::get('/edit{id}', [CategoriesController::class, 'getCategory'])->name('categories.edit');
+    Route::post('/edit{id}', [CategoriesController::class, 'updateCategory']);
+    Route::get('/create', [CategoriesController::class, 'createCategory'])->name('categories.create');
+    Route::post('/handler', [CategoriesController::class, 'handleCategory'])->name('categories.add');
+    Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');
+});
