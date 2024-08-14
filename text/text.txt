@@ -1,0 +1,2 @@
+- laravel :
+   - Tạo dự án đầu tay bằng laravel 
