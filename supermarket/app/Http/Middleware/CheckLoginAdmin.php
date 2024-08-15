@@ -9,9 +9,15 @@ class CheckLoginAdmin
 {
     public function handle(Request $request, Closure $next)
     {
-        if ($this->isLogin() == false) {
+        $id = $request->id;
+        dd($id);
+        // if ($this->isLogin() == false) {
+        //     return redirect(route('home'));
+        // }
+        if ($id == 2) {
             return redirect(route('home'));
         }
+
         return $next($request);
     }
     public function isLogin()

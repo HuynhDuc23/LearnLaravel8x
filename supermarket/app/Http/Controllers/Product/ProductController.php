@@ -7,20 +7,19 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index($id)
+    public function index(Request $request)
     {
+        $data = $request->all();
+        print_r($data['id']);
         // return view('clients.products.detail', compact('id'));
         $data = [
-            'id' => $id,
-            'name' => 'Tran Vu Huynh Duc'
+            'id' => $data['id'],
         ];
-
-        $name = 'name';
 
         // mac du la mang nhung khi render ra view thi truy xuat den phan tu la duoc
 
         // return view('clients.products.detail', $data);
 
-        return view('clients.products.detail')->with('id', $id);
+        return view('clients.products.detail', $data);
     }
 }

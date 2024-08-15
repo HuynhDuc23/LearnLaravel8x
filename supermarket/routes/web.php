@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get('/', function () {
-    return 'UNICODE';
-})->name('home');
+// Route::get('/', function () {
+//     return 'UNICODE';
+// })->name('home');
 
 // client route
 Route::middleware('auth.admin')->prefix('categories')->group(function () {
@@ -42,4 +42,4 @@ Route::middleware('auth.admin')->prefix('categories')->group(function () {
 //     // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 // });
 
-Route::get('/product/{id}', [ProductController::class, 'index']);
+Route::get('/product', [ProductController::class, 'index']);

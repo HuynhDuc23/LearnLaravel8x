@@ -22,7 +22,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        // \App\Http\Middleware\CheckLoginAdmin::class
+        //  \App\Http\Middleware\CheckLoginAdmin::class
 
         // tap hop tat cả middlware , khong phan biet route nao ca
     ];
@@ -72,7 +72,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'auth.admin' => \App\Http\Middleware\CheckLoginAdmin::class,
-        'auth.admin.product' => \App\Http\Middleware\ProductPermission::class
+        //'auth.admin' => \App\Http\Middleware\CheckLoginAdmin::class,
+        //'auth.admin.product' => \App\Http\Middleware\ProductPermission::class
     ];
 }
