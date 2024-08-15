@@ -22,7 +22,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\CheckLoginAdmin::class
+        // \App\Http\Middleware\CheckLoginAdmin::class
 
         // tap hop tat cả middlware , khong phan biet route nao ca
     ];

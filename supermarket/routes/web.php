@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CategoriesController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,3 +41,5 @@ Route::middleware('auth.admin')->prefix('categories')->group(function () {
 //     Route::middleware('auth.admin.product')->resource('products', [ProductController::class, 'index']);
 //     // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 // });
+
+Route::get('/product/{id}', [ProductController::class, 'index']);
