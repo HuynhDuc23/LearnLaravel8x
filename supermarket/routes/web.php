@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\client\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -43,3 +44,12 @@ Route::middleware('auth.admin')->prefix('categories')->group(function () {
 // });
 
 Route::get('/product', [ProductController::class, 'index']);
+
+//users
+Route::prefix('/user')->group(function () {
+    Route::get('/index', [UserController::class, 'index']);
+    Route::get('/url', [UserController::class, 'getUrl'])->name('user.url');
+    Route::get('/show', [UserController::class, 'showForm'])->name('user.get');
+    Route::post('/store', [UserController::class, 'handlePost'])->name('user.store');
+    Route::post('/file', [UserController::class, 'handleFile'])->name('user.file');
+});
