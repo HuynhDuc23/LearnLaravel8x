@@ -3,7 +3,10 @@
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\client\UserController;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rules\Unique;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -52,4 +55,70 @@ Route::prefix('/user')->group(function () {
     Route::get('/show', [UserController::class, 'showForm'])->name('user.get');
     Route::post('/store', [UserController::class, 'handlePost'])->name('user.store');
     Route::post('/file', [UserController::class, 'handleFile'])->name('user.file');
+});
+
+// response route
+Route::get('/response', function () {
+    return 'Response From Serve To Users';
+});
+
+// Laravel framework automatically array convert to json
+Route::get('/json', function () {
+    $data = [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+    ];
+    return $data;
+});
+
+// response object();
+Route::get('/response_result', function () {
+    //return response('Data render', 201)->header('API-Version', 'API');
+    // you can define header or use header default
+
+    return response('Data render', 200)
+        ->header('Content-Type', 'Header')
+        ->header('X-Header-One', 'Header Value')
+        ->header('X-Header-Two', 'Header Value');
+});
+// convert object to json auto
+
+// use with header
+//Route:
+Route::get("/response_data", function () {
+    return response("Data render", 200)->withHeaders([
+        'token' => 'data',
+        'idphp' => 'idphp'
+    ]);
+    // response headers
+});
+
+Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function () {
+    Route::get('/privacy', function () {
+        return 'privacy';
+    });
+
+    Route::get('/terms', function () {
+        return 'terms';
+    });
+});
+
+// cookies in header
+Route::get('/cookies', function () {
+    return response('Data render', 400)->cookie('token', '1234567890')->withHeaders([
+        'data' => 'data01',
+    ]);
+});
+
+Route::get('/cookies_des', function () {
+    Cookie::expire('token');
+    //return response('data render', 200)->withoutCookie('token');
 });
