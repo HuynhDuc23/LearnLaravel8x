@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\UserController;
-use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Validation\Rules\Unique;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -122,3 +122,6 @@ Route::get('/cookies_des', function () {
     Cookie::expire('token');
     //return response('data render', 200)->withoutCookie('token');
 });
+
+Route::get('/them-san-pham', [ClientProductController::class, 'product']);
+Route::post('/them-san-pham', [ClientProductController::class, 'add']);
