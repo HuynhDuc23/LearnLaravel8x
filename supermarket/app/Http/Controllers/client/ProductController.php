@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Rules\UpperCase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,8 +20,8 @@ class ProductController extends Controller
     public function add(Request $request)
     {
         $rules = [
-            'email' => 'required|min:6',
-            'password' => 'required|min:6'
+            'email' => ['required', 'min:6'],
+            'password' => ['required', 'min:6', new UpperCase],
         ];
         $messages = [
             'required' => ':attribute bắt buộc phải nhập',

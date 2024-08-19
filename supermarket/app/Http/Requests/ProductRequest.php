@@ -88,4 +88,7 @@ class ProductRequest extends FormRequest
     // cách 3 trong validation sử dụng lớp : Validator : Laravel cung cấp sẵn class Validator , bạn có thể sử dụng class này để
     // Validation dữ liệu
 
+
+    // Tạo thêm Rule Validation trong trường hợp Rule của laravel không đáp ứng nhu cầu của dự án lúc này bạn thêm Rule Validation
+
 }
