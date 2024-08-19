@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BladeController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
@@ -108,3 +109,8 @@ Route::get('/cookies_des', function () {
 Route::get('/them-san-pham', [ClientProductController::class, 'product']);
 Route::post('/them-san-pham', [ClientProductController::class, 'add']);
 Route::get('/san-pham', [ClientProductController::class, 'get'])->name('get-san-pham');
+
+
+
+// Route blade
+Route::get('/', [BladeController::class, 'index']);
