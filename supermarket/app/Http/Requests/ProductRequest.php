@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 
 class ProductRequest extends FormRequest
@@ -32,7 +33,7 @@ class ProductRequest extends FormRequest
         ];
     }
     // option
-    public function messages()
+    public function messages(): array
     {
         return [
             'email.required' => ':attribute bắt buộc phải nhập',
@@ -42,7 +43,7 @@ class ProductRequest extends FormRequest
         ];
     }
     // option
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'email' => 'Thư điện tử',
@@ -51,7 +52,7 @@ class ProductRequest extends FormRequest
     }
 
     // Sau khi validation
-    protected function withValidator($validator)
+    protected function withValidator($validator): void
     {
         $validator->after(function ($validator) {
             if ($validator->errors()->count()) {
@@ -81,4 +82,10 @@ class ProductRequest extends FormRequest
     }
 
     // trường hợp muốn chuyển hướng chứ không muốn quen ra 403 : HttpResponseException
+
+
+
+    // cách 3 trong validation sử dụng lớp : Validator : Laravel cung cấp sẵn class Validator , bạn có thể sử dụng class này để
+    // Validation dữ liệu
+
 }

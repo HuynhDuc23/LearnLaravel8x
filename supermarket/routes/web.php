@@ -1,29 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\UserController;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Route::get('/calculator', function () {
-//     return view('calculator');
-// });
-
-
-// Route::get('/', function () {
-//     return 'UNICODE';
-// })->name('home');
 
 // client route
 Route::middleware('auth.admin')->prefix('categories')->group(function () {
@@ -125,3 +107,4 @@ Route::get('/cookies_des', function () {
 
 Route::get('/them-san-pham', [ClientProductController::class, 'product']);
 Route::post('/them-san-pham', [ClientProductController::class, 'add']);
+Route::get('/san-pham', [ClientProductController::class, 'get'])->name('get-san-pham');
