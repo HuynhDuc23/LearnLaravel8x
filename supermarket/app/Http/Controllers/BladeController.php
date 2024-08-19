@@ -19,4 +19,14 @@ class BladeController extends Controller
         $this->data['index'] = 0;
         return view('Blade', $this->data);
     }
+    public function home()
+    {
+        $this->data['title'] = 'UNICODE-PAGE';
+        return view('clients.home', $this->data);
+    }
+    public function products()
+    {
+        $this->data['title_products'] = 'UNICODE_PAGE_PRODUCT';
+        return view('clients.product', $this->data);
+    }
 }

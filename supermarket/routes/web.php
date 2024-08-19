@@ -114,3 +114,5 @@ Route::get('/san-pham', [ClientProductController::class, 'get'])->name('get-san-
 
 // Route blade
 Route::get('/', [BladeController::class, 'index']);
+Route::get('/home', [BladeController::class, 'home']);
+Route::get('/products', [BladeController::class, 'products']);

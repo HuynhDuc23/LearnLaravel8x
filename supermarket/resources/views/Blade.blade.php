@@ -40,3 +40,7 @@
         $index++;
     @endphp
 @endwhile
+@php
+    $message = 'This is order';
+@endphp
+@include('parts.notice')
