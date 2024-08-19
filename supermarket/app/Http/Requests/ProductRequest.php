@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Validator;
 
 class ProductRequest extends FormRequest
 {
@@ -12,7 +15,8 @@ class ProductRequest extends FormRequest
     public function authorize(): bool
     {
         // access user excute request ?
-        return true;
+        return false;
+        // muốn thay đổi dòng text mặc định của laravel ?
     }
 
     /**
@@ -45,4 +49,36 @@ class ProductRequest extends FormRequest
             'password' => 'mật khẩu',
         ];
     }
+
+    // Sau khi validation
+    protected function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($validator->errors()->count()) {
+                $validator->errors()->add('msg', 'Đã có lỗi vui lòng kiểm tra lại');
+            }
+        });
+        // sau khi validation xong thì cho dù đúng hay sai thì nó cũng chạy xuống
+    }
+    // trước khi validation
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'create_at' => date('Y-m-d H:i:s')
+        ]);
+    }
+    protected function failedAuthorization()
+    {
+        //throw new AuthorizationException('Bạn đang truy cập vào khu vực cấm');
+        //muốn thay đổi dòng text mặc định của laravel
+        // ghi đè lại core laravel
+
+        // trường hợp muốn chuyển hướng chứ không muốn quen ra 403 : HttpResponseException
+        //throw new HttpResponseException(redirect('/home')->with('msg' . 'Đã có lỗi xảy ra'));
+
+        // chuyển hướng về 404 trong errors , nó sẽ ghi đè
+        throw new HttpResponseException(abort(404));
+    }
+
+    // trường hợp muốn chuyển hướng chứ không muốn quen ra 403 : HttpResponseException
 }

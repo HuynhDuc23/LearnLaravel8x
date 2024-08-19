@@ -14,9 +14,12 @@
     <div class="container">
         <h1> {{ $title }}</h1>
         <form method="post">
-            @if ($errors->any())
+            {{-- @if ($errors->any())
                 <div class="alert alert-danger text-center">{{ $error }}</div>
-            @endif
+            @endif --}}
+            @error('msg')
+                <div class="alert alert-danger text-center">{{ $message }}</div>
+            @enderror
             @csrf
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>

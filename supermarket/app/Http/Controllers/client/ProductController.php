@@ -18,6 +18,7 @@ class ProductController extends Controller
     }
     public function add(ProductRequest $request)
     {
+        dd($request->all());
         // $rules = [
         //     'email' => 'required|min:6',
         //     'password' => 'required|min:6'
