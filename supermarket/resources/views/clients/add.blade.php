@@ -24,6 +24,7 @@
             {{ session('msg') }}
         </div>
     @endif
+    <x-alert type="info" :message="$title" />
 @endsection
 @section('js')
 @endsection
