@@ -3,7 +3,7 @@
 
 @section('css')
     <style>
-        h1 {
+        header {
             background-color: yellow;
             text-transform: uppercase;
         }
@@ -17,8 +17,7 @@
     <h3>Home Sidebar</h3>
 @endsection
 @section('content')
-    <h1>TRANG CHủ</h1>
-    <button type="submit" class="btn" id="btn">SUBMIT</button>
+    <h1>Home</h1>
 @endsection
 @section('js')
     <script>

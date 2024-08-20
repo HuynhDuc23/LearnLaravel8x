@@ -25,7 +25,7 @@ class ProductController extends Controller
         ];
         $messages = [
             'required' => ':attribute bắt buộc phải nhập',
-            'min' => '::attribute phaỉ nhỏ hơn :min kí tự'
+            'min' => ':attribute phaỉ nhỏ hơn :min kí tự'
         ];
         $attributes = [
             'email' => 'Thư điện tử',
