@@ -15,6 +15,9 @@
     @if (session('success'))
         <div class="alert alert-success mt-2"> {{ session('success') }} </div>
     @endif
+    @if (session('msg'))
+        <div class="alert alert-success mt-2"> {{ session('msg') }} </div>
+    @endif
     <table class="table">
         <thead>
             <tr>
@@ -35,10 +38,14 @@
                         <td>{{ $item->email }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>
-                            <a href="#" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('user.edit', [
+                                'id' => $item->id,
+                            ]) }}"
+                                class="btn btn-warning">Edit</a>
                         </td>
                         <td>
-                            <a href="#" class="btn btn-danger">Delete</a>
+                            <a onclick="return confirm('Are you sure delete?')"
+                                href="{{ route('user.delete', ['id' => $item->id]) }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 @endforeach

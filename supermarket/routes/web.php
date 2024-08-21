@@ -125,4 +125,7 @@ Route::prefix('/user')->name('user.')->group(function () {
     Route::get('/', [ControllersUserController::class, 'index'])->name('index');
     Route::get('/get', [ControllersUserController::class, 'get'])->name('get');
     Route::post('/get', [ControllersUserController::class, 'post'])->name('post');
+    Route::get('/edit/{id}', [ControllersUserController::class, 'getEdit'])->name('edit');
+    Route::post('/update', [ControllersUserController::class, 'postEdit'])->name('post-edit');
+    Route::get('/delete/{id}', [ControllersUserController::class, 'delete'])->name('delete');
 });
