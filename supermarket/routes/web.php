@@ -5,6 +5,7 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\UserController;
+use App\Http\Controllers\UserController as ControllersUserController;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 
@@ -118,3 +119,10 @@ Route::get('/home', [BladeController::class, 'home'])->name('home');
 Route::get('/products', [BladeController::class, 'products'])->name('products');
 Route::get("/them-san-pham", [BladeController::class, 'getAdd'])->name('adds');
 Route::post("/them-san-pham", [BladeController::class, 'postAdd'])->name('posts');
+
+// nguoi dung
+Route::prefix('/user')->name('user.')->group(function () {
+    Route::get('/', [ControllersUserController::class, 'index'])->name('index');
+    Route::get('/get', [ControllersUserController::class, 'get'])->name('get');
+    Route::post('/get', [ControllersUserController::class, 'post'])->name('post');
+});
