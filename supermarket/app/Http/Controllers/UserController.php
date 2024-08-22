@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $this->users->learnQueryBuilder();
+        // $this->users->learnQueryBuilder();
 
         $users = DB::select('SELECT * FROM users ORDER BY created_at DESC');
         $title =  'Danh Sach San Pham';
@@ -49,9 +49,9 @@ class UserController extends Controller
             // insert data
             $time = date('Y-m-d H:i:s');
             $data = [
-                $request->name,
-                $request->email,
-                $time
+                'name' => $request->name,
+                'email' => $request->email,
+                'created_at' => $time
             ];
             $this->users->postUsers($data);
             return redirect()->route('user.index')->with('success', 'Dữ liệu đã được valiadion và thêm mới');
@@ -62,8 +62,8 @@ class UserController extends Controller
         $title = 'Cập nhật người dùng';
         if (!empty($id)) {
             $userDetail = $this->users->getDetail($id);
-            if (!empty($userDetail[0])) {
-                $userDetail = $userDetail[0];
+            if (!empty($userDetail)) {
+                $userDetail = $userDetail;
                 $request->session()->put('id', $id);
             } else {
                 return redirect()->route('user.index')->with('msg', 'Không tìm thấy người dùng');
@@ -92,8 +92,8 @@ class UserController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
             } else {
                 $data = [
-                    $request->name,
-                    $request->email,
+                    'name' => $request->name,
+                    'email' => $request->email,
                 ];
                 $this->users->updateUser($id, $data);
             }
@@ -107,7 +107,7 @@ class UserController extends Controller
         if (!empty($id)) {
             $userDetail = $this->users->getDetail($id);
             if (!empty($userDetail)) {
-                $userDetail = $userDetail[0];
+                $userDetail = $userDetail;
                 $this->users->deleteUser($id);
             } else {
                 return redirect()->route('user.index')->with('msg', 'không tồn tại dữ liệu');

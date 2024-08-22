@@ -18,6 +18,31 @@
     @if (session('msg'))
         <div class="alert alert-success mt-2"> {{ session('msg') }} </div>
     @endif
+    <form action="" method="get">
+        <div class="row mt-3">
+            <div class="col-4">
+                <input type="search" class="form-control" placeholder="Vui lòng nhập vào" name="keywords"
+                    value="{{ request()->keywords }}">
+            </div>
+            <div class="col-3">
+                <select name="group_id" id="" class="form-control" name="group_id">
+                    <option value="0"> Tất cả các nhóm</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <select id="" class="form-control" name="status">
+                    <option value="0">Tất Cả Trạng thái</option>
+                    <option value="active" {{ request()->status == 'active' ? 'selected' : false }}> Kích hoạt</option>
+                    <option value="inactive" {{ request()->status == 'active' ? 'selected' : false }}> Chưa Kích hoạt
+                    </option>
+                </select>
+            </div>
+            <div class="col-2">
+                <button type="submit" name='search' value="search" class="btn btn-primary btn-block"> Tìm kiếm</button>
+            </div>
+
+        </div>
+    </form>
     <table class="table">
         <thead>
             <tr>

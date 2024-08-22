@@ -13,24 +13,41 @@ class Users extends Model
 
     public function getAllUsers()
     {
-        return DB::select('SELECT * FROM users ORDER BY created_at desc');
+        return DB::table($this->table)->orderBy('created_at', 'desc')->get();
+        //return DB::select('SELECT * FROM users ORDER BY created_at desc');
     }
     public function postUsers($data)
     {
-        return DB::insert('INSERT INTO users (name, email , created_at) VALUES( ?, ?,?)', $data);
+
+        $data = DB::table($this->table)->insert($data);
+        return $data;
+        // return DB::insert('INSERT INTO users (name, email , created_at) VALUES( ?, ?,?)', $data);
     }
     public function getDetail($id)
     {
-        return DB::select('SELECT * FROM users WHERE id =?', [$id]);
+
+        $data =  DB::table($this->table)->where('id', $id)->first();
+        // true
+        return $data;
+        //return DB::select('SELECT * FROM users WHERE id =?', [$id]);
     }
     public function updateUser($id, $data)
     {
-        $data = array_merge($data, [$id]);
-        return DB::update('UPDATE users SET name =?, email =? WHERE id =?', $data);
+        //$data = array_merge($data, [$id]);
+
+        return DB::table($this->table)->where('id', $id)->update(
+            [
+                'name' => $data['name'],
+                'email' => $data['email'],
+            ]
+        );
+        // return DB::update('UPDATE users SET name =?, email =? WHERE id =?', $data);
     }
     public function deleteUser($id)
     {
-        return DB::delete('DELETE FROM users WHERE id =?', [$id]);
+        //return DB::delete('DELETE FROM users WHERE id =?', [$id]);
+
+        return DB::table($this->table)->where('id', $id)->delete();
     }
     public function stastement()
     {
