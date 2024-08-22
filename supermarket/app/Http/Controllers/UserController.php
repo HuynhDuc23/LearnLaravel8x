@@ -16,6 +16,9 @@ class UserController extends Controller
     }
     public function index()
     {
+
+        $this->users->learnQueryBuilder();
+
         $users = DB::select('SELECT * FROM users ORDER BY created_at DESC');
         $title =  'Danh Sach San Pham';
         return view('clients.users_.lists', compact('title', 'users'));
