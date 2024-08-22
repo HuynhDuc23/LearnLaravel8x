@@ -22,6 +22,12 @@ class Users extends Model
             $data = $data->where($filters);
         }
         // Lưu ý: get() nên được gọi sau khi tất cả các điều kiện đã được áp dụng.
+        if (!empty($keywords)) {
+            $data = $data->where('users.name', 'like', '%' . $keywords . '%');
+            $data = $data->orWhere('users.email', 'like', '%' . $keywords . '%');
+        }
+
+
         return $data->get();
     }
     public function postUsers($data)
