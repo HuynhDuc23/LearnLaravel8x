@@ -11,10 +11,18 @@ class Users extends Model
     protected  $table = "users";
     use HasFactory;
 
-    public function getAllUsers()
+    public function getAllUsers($filters = [], $keywords = null)
     {
-        return DB::table($this->table)->orderBy('created_at', 'desc')->get();
-        //return DB::select('SELECT * FROM users ORDER BY created_at desc');
+        $data = DB::table($this->table)
+            ->select('users.*', 'groups.name as group_name')
+            ->join('groups', 'users.id_group', '=', 'groups.id')
+            ->orderBy('users.created_at', 'desc');
+
+        if (!empty($filters)) {
+            $data = $data->where($filters);
+        }
+        // Lưu ý: get() nên được gọi sau khi tất cả các điều kiện đã được áp dụng.
+        return $data->get();
     }
     public function postUsers($data)
     {
@@ -27,7 +35,7 @@ class Users extends Model
     {
 
         $data =  DB::table($this->table)->where('id', $id)->first();
-        // true
+        // object
         return $data;
         //return DB::select('SELECT * FROM users WHERE id =?', [$id]);
     }

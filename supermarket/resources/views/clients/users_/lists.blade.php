@@ -27,13 +27,19 @@
             <div class="col-3">
                 <select name="group_id" id="" class="form-control" name="group_id">
                     <option value="0"> Tất cả các nhóm</option>
+                    @if (!empty(getAllGroups()))
+                        @foreach (getAllGroups() as $item)
+                            <option value="{{ $item->id }}" {{ request()->group_id == $item->id ? 'selected' : false }}>
+                                {{ $item->name }}</option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
             <div class="col-3">
                 <select id="" class="form-control" name="status">
                     <option value="0">Tất Cả Trạng thái</option>
                     <option value="active" {{ request()->status == 'active' ? 'selected' : false }}> Kích hoạt</option>
-                    <option value="inactive" {{ request()->status == 'active' ? 'selected' : false }}> Chưa Kích hoạt
+                    <option value="inactive" {{ request()->status == 'inactive' ? 'selected' : false }}> Chưa kích hoạt
                     </option>
                 </select>
             </div>
@@ -49,6 +55,8 @@
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Nhóm</th>
+                <th scope="col">Kích hoạt</th>
                 <th scope="col">Created_at</th>
                 <th width="10%">Edit</th>
                 <th width="10%">Delete</th>
@@ -61,7 +69,11 @@
                         <th scope="row">{{ ++$key }}</th>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
+                        <td>{{ $item->group_name }}</td>
                         <td>{{ $item->created_at }}</td>
+                        <td>{!! $item->status == 0
+                            ? '<button class="btn btn-sm btn-danger">Chưa kích hoạt</button>'
+                            : '<button class="btn btn-sm btn-success">kích hoạt</button>' !!}</td>
                         <td>
                             <a href="{{ route('user.edit', [
                                 'id' => $item->id,

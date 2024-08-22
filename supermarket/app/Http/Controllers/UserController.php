@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Users;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,13 +13,42 @@ class UserController extends Controller
     {
         $this->users = new Users();
     }
-    public function index()
+    public function index(Request $request)
     {
+        $filters = [];
+        $keywords = null;
+        if (!empty($request->status)) {
+            $status = $request->status;
+            if ($status == 'active') {
+                $status = 1;
+            } else {
+                $status = 0;
+            }
 
-        // $this->users->learnQueryBuilder();
+            $filters[] = [
+                'users.status',
+                '=',
+                $status
+            ];
+        }
 
-        $users = DB::select('SELECT * FROM users ORDER BY created_at DESC');
-        $title =  'Danh Sach San Pham';
+
+        if (!empty($request->group_id)) {
+            $group_id = $request->group_id;
+            $filters[] = [
+                'users.id_group',
+                '=',
+                $group_id
+            ];
+            // mang long mang
+        }
+        if (!empty($request->keywords)) {
+            $keywords = $request->keywords;
+        }
+
+
+        $users = $this->users->getAllUsers($filters, $keywords);
+        $title =  'List Data People';
         return view('clients.users_.lists', compact('title', 'users'));
     }
     public function get()
