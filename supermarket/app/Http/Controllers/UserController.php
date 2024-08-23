@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     protected $users;
+    const _PER_PAGE = 3;
     function __construct()
     {
         $this->users = new Users();
@@ -81,7 +82,9 @@ class UserController extends Controller
             'sort-by' => $sortBy,
             'sort-type' => $sortType,
         ];
-        $users = $this->users->getAllUsers($filters, $keywords, $arrSort);
+        $users = $this->users->getAllUsers($filters, $keywords, $arrSort, self::_PER_PAGE);
+
+        $users->withQueryString(); // luu lai query string tren url
 
         $msg = $users->isEmpty() ? 'Không tìm thấy dữ liệu cần tìm' : 'Dữ liệu tìm thành công !';
 

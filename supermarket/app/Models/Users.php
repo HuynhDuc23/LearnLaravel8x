@@ -11,7 +11,7 @@ class Users extends Model
     protected  $table = "users";
     use HasFactory;
 
-    public function getAllUsers($filters = [], $keywords = null, $arrSort = null)
+    public function getAllUsers($filters = [], $keywords = null, $arrSort = null, $perPage = null)
     {
         $data = DB::table($this->table)
             ->select('users.*', 'groups.name as group_name')
@@ -35,8 +35,13 @@ class Users extends Model
             $data = $data->where('users.name', 'like', '%' . $keywords . '%');
             $data = $data->orWhere('users.email', 'like', '%' . $keywords . '%');
         }
+        if (!empty($perPage)) {
+            $data = $data->paginate($perPage);
+        } else {
+            $data = $data->get();
+        }
 
-        return $data->get();
+        return $data;
     }
     public function postUsers($data)
     {

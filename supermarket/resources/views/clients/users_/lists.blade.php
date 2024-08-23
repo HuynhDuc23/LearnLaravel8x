@@ -94,6 +94,9 @@
             @endif
         </tbody>
     </table>
+    <div class="justify-content-end">
+        {{ $users->links() }}
+    </div>
     <a href="{{ route('user.get') }}" class="btn btn-primary mt-2">ADD</a>
 @endsection
 @section('js')
