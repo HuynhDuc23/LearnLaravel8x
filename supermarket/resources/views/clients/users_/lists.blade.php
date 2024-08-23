@@ -53,7 +53,8 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Name</th>
+                <th scope="col"><a style="text-decoration: none"
+                        href="?sort-by=name&sort-type={{ $sortType }}">Name</a></th>
                 <th scope="col">Email</th>
                 <th scope="col">Nhóm</th>
                 <th scope="col">Kích hoạt</th>

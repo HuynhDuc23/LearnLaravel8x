@@ -47,9 +47,45 @@ class UserController extends Controller
         }
 
 
-        $users = $this->users->getAllUsers($filters, $keywords);
+
         $title =  'List Data People';
-        return view('clients.users_.lists', compact('title', 'users'));
+
+        // xu ly logic loc du lieu sap xep
+        $sortType = $request->input('sort-type');
+
+
+        $sortBy = $request->input('sort-by');
+
+        $arrName = [
+            'name'
+        ];
+
+        if (!empty($sortBy) && in_array($sortBy, $arrName)) {
+            $sortBy = $request->input('sort-by');
+        } else {
+            $sortBy = 'name';
+        }
+
+        $allowArray = ['asc', 'desc'];
+        if (!empty($sortType) && in_array($sortType, $allowArray)) {
+            if ($sortType == 'asc') {
+                $sortType = 'desc';
+            } else {
+                $sortType = 'asc';
+            }
+        } else {
+            $sortType = 'asc';
+        }
+
+        $arrSort = [
+            'sort-by' => $sortBy,
+            'sort-type' => $sortType,
+        ];
+        $users = $this->users->getAllUsers($filters, $keywords, $arrSort);
+
+        $msg = $users->isEmpty() ? 'Không tìm thấy dữ liệu cần tìm' : 'Dữ liệu tìm thành công !';
+
+        return view('clients.users_.lists', compact('title', 'users', 'sortType'))->with('msg1', $msg);
     }
     public function get()
     {

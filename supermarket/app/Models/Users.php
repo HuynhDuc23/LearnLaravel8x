@@ -11,13 +11,22 @@ class Users extends Model
     protected  $table = "users";
     use HasFactory;
 
-    public function getAllUsers($filters = [], $keywords = null)
+    public function getAllUsers($filters = [], $keywords = null, $arrSort = null)
     {
         $data = DB::table($this->table)
             ->select('users.*', 'groups.name as group_name')
-            ->join('groups', 'users.id_group', '=', 'groups.id')
-            ->orderBy('users.created_at', 'desc');
-
+            ->join('groups', 'users.id_group', '=', 'groups.id');
+        // ->orderBy('users.created_at', 'desc');
+        $sortBy = 'created_at';
+        $sortType = 'desc';
+        if (!empty($arrSort) && is_array($arrSort)) {
+            if (!empty($arrSort['sort-by']) && !empty($arrSort['sort-type'])) {
+                $sortBy = trim($arrSort['sort-by']);
+                $sortType = trim($arrSort['sort-type']);
+            }
+            // dd($sortBy);
+        }
+        $data = $data->orderBy('users.' . $sortBy, $sortType);
         if (!empty($filters)) {
             $data = $data->where($filters);
         }
@@ -26,7 +35,6 @@ class Users extends Model
             $data = $data->where('users.name', 'like', '%' . $keywords . '%');
             $data = $data->orWhere('users.email', 'like', '%' . $keywords . '%');
         }
-
 
         return $data->get();
     }
