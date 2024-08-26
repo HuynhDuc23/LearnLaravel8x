@@ -5,6 +5,7 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\UserController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
@@ -128,4 +129,15 @@ Route::prefix('/user')->name('user.')->group(function () {
     Route::get('/edit/{id}', [ControllersUserController::class, 'getEdit'])->name('edit');
     Route::post('/update', [ControllersUserController::class, 'postEdit'])->name('post-edit');
     Route::get('/delete/{id}', [ControllersUserController::class, 'delete'])->name('delete');
+});
+// post
+Route::prefix('/post')->name('post.')->group(function () {
+    Route::get('/', [PostController::class, 'index'])->name('index');
+    Route::get('/get', [PostController::class, 'get'])->name('get');
+    Route::post('/get', [PostController::class, 'post'])->name('post');
+    Route::get('/edit/{id}', [PostController::class, 'getEdit'])->name('edit');
+    Route::post('/update', [PostController::class, 'postEdit'])->name('post-edit');
+    //Route::get('/delete/{id}', [PostController::class, 'delete'])->name('delete');
+    Route::get('/show', [PostController::class, 'show'])->name('show');
+    Route::post('/delete', [PostController::class, 'delete'])->name('delete');
 });

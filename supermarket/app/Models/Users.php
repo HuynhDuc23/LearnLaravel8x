@@ -15,7 +15,8 @@ class Users extends Model
     {
         $data = DB::table($this->table)
             ->select('users.*', 'groups.name as group_name')
-            ->join('groups', 'users.id_group', '=', 'groups.id');
+            ->join('groups', 'users.id_group', '=', 'groups.id')
+            ->where('trash', 0);
         // ->orderBy('users.created_at', 'desc');
         $sortBy = 'created_at';
         $sortType = 'desc';
