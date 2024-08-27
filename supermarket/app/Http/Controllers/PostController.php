@@ -15,7 +15,6 @@ class PostController extends Controller
     public function index()
     {
         $data = $this->post->insertData();
-        dd('ok');
     }
     public function getEdit(Request $request)
     {
@@ -25,24 +24,14 @@ class PostController extends Controller
     }
     public function get()
     {
-        $data = $this->post->getPosts();
-        dd($data);
+        return Post::withTrashed()->get();
     }
-    // public function delete(Request $request)
-    // {
-    //     $id = $request->id;
-    //     $data = $this->post->deletePostById($id);
-    //     if ($data == true) {
-    //         dd('Delete success');
-    //     } else {
-    //         dd('Delete failed');
-    //     }
-    // }
     public function show(Request $request)
     {
         $title = 'List Posts';
-        $records = Post::all();
-        return view('clients.post.list', compact('title', 'records'));
+        $records = Post::withTrashed()->orderBy('deleted_at', 'asc')->paginate(2);
+        $count = Post::onlyTrashed()->count();
+        return view('clients.post.list', compact('title', 'records', 'count'));
     }
     public function delete(Request $request)
     {
@@ -57,8 +46,52 @@ class PostController extends Controller
                 }
             }
         } else {
-            return redirect()->back()->with('msg', ' Cant not delete ');
+            return redirect()->back()->with('msg-delete', ' Please Tick Select 1 of All !!!');
         }
         return redirect()->route('post.show')->with('msg', 'Delete Sucessfully')->with('success', 'Success');
+    }
+    public function restore()
+    {
+        Post::onlyTrashed()->restore();
+        return redirect()->route('post.show')->with('msg', 'Restore Sucessfully');
+    }
+    public function softDelete(Request $request)
+    {
+        $id = $request->id;
+
+        if (!empty($id)) {
+            // Lấy bản ghi đã bị xóa mềm trước đó
+            $data = Post::withTrashed()->find($id);
+
+            if (!empty($data)) {
+                // Thực hiện xóa vĩnh viễn
+                $data->forceDelete();
+                return redirect()->route('post.show')->with('msg', 'Deleted permanently with ID: ' . $id);
+            } else {
+                return redirect()->back()->with('msg', 'Cannot find post with ID: ' . $id);
+            }
+        }
+
+        return redirect()->back()->with('msg', 'No ID provided.');
+    }
+    public function detailSoftDelete()
+    {
+        $data = Post::onlyTrashed()->get();
+        dd($data);
+    }
+    public function restoreByIdPost(Request $request)
+    {
+        $id = $request->id;
+        if (!empty($id)) {
+            $post = Post::withTrashed()->find($id);
+            if (!empty($post)) {
+                $post->restore();
+                return redirect()->route('post.show')->with('msg', 'Restore Sucessfully with ID: ' . $id);
+            } else {
+                return redirect()->back()->with('msg', 'Cannot find post with ID: ' . $id);
+            }
+        } else {
+            return redirect()->back()->with('msg', 'No ID provided.');
+        }
     }
 }

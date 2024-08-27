@@ -11,9 +11,10 @@
     <h3>Home Sidebar</h3>
 @endsection
 @section('content')
-    <h1>{{ $title ? $title : 'Default value' }}</h1>
-    @if (session('success'))
-        <div class="alert alert-success mt-2"> {{ session('success') }} </div>
+    <h1 style="text-align: center ; text-transform:uppercase">{{ $title ? $title : 'Default value' }}</h1>
+
+    @if (session('msg-delete'))
+        <div class="alert alert-danger mt-2"> {{ session('msg-delete') }} </div>
     @endif
     @if (session('msg'))
         <div class="alert alert-success mt-2"> {{ session('msg') }} </div>
@@ -21,14 +22,18 @@
     <form action="{{ route('post.delete') }}" method="post" onsubmit="return confirm('Delete ?')">
         @csrf
         @method('post')
-        <button type="submit" class="btn btn-danger">Delete(0)</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{{ route('post.detail') }}" class="btn btn-primary">SoftDelete({{ $count }})</a>
+        <a href="{{ route('post.restore') }}" class="btn btn-warning">RestoreAll({{ $count }})</a>
         <table class="table">
             <thead>
                 <tr>
-                    <th width="10%">Select</th>
+                    <th width="5%">OPTION</th>
                     <th scope="col">STT</th>
-                    <th width="10%">Title</th>
-                    <th width="10%">Name</th>
+                    <th width="5%">Title</th>
+                    <th width="30%">Name</th>
+                    <th width="5%">Status</th>
+                    <th width="5%">Restore</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,11 +41,30 @@
                     @foreach ($records as $key => $record)
                         <tr>
                             <td>
-                                <input type="checkbox" name="ids[]" value="{{ $record->id }}">
+                                @if (!$record->trashed())
+                                    <input type="checkbox" name="ids[]" value="{{ $record->id }}">
+                                @endif
                             </td>
                             <td scope="row">{{ ++$key }}</td>
                             <td>{{ $record->title }}</td>
                             <td>{{ $record->name }}</td>
+                            <td>
+                                @if ($record->trashed())
+                                    <a onclick="return confirm('Delete ?')"
+                                        href="{{ route('post.soft', ['id' => $record->id]) }}"
+                                        class="btn btn-danger">Deleted</a>
+                                @else
+                                    <span style="color: green">Active</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($record->trashed())
+                                    <a href="{{ route('post.postId', ['id' => $record->id]) }}"
+                                        class="btn btn-success">Restore</a>
+                                @else
+                                    <span style="color: green">Active</span>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 @else
@@ -50,6 +74,7 @@
                 @endif
             </tbody>
         </table>
+        <div>{{ $records->links() }}</div>
     </form>
     <div class="justify-content-end">
     </div>

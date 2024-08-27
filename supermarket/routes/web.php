@@ -140,4 +140,8 @@ Route::prefix('/post')->name('post.')->group(function () {
     //Route::get('/delete/{id}', [PostController::class, 'delete'])->name('delete');
     Route::get('/show', [PostController::class, 'show'])->name('show');
     Route::post('/delete', [PostController::class, 'delete'])->name('delete');
+    Route::get('/restore', [PostController::class, 'restore'])->name('restore');
+    Route::get('/delete/{id}', [PostController::class, 'softDelete'])->name('soft');
+    Route::get('/detail', [PostController::class, 'detailSoftDelete'])->name('detail');
+    Route::get('/postById/{id}', [PostController::class, 'restoreByIdPost'])->name('postId');
 });

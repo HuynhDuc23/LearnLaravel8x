@@ -21,11 +21,9 @@ class Post extends Model
     protected $primaryKey = 'id';
     protected $keyType = 'int';
     protected $fillable = ['title', 'name']; // cho phép insert vào bảng
-
     // khong tu dong insert data created at va updated at
-    public $timestamps = false;
-
-
+    //public $timestamps = false;
+    protected $dates = ['deleted_at'];
     public function insertData()
     {
         // Thêm dữ liệu vào bảng posts
@@ -39,26 +37,5 @@ class Post extends Model
             'name' => 'name'
         ];
         Post::create($data);
-    }
-    public static function  findPostById($id)
-    {
-        // Tìm post theo id
-        return Post::find($id);
-    }
-    public function getPosts()
-    {
-        return Post::all();
-    }
-    public function deletePostById($id)
-    {
-        $post = new Post();
-        $result = Post::findPostById($id);
-        if ($result) {
-            //$result->delete();
-            Post::destroy($id);
-            return true;
-        } else {
-            return false;
-        }
     }
 }
