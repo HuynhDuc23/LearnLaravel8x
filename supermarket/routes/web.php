@@ -129,6 +129,7 @@ Route::prefix('/user')->name('user.')->group(function () {
     Route::get('/edit/{id}', [ControllersUserController::class, 'getEdit'])->name('edit');
     Route::post('/update', [ControllersUserController::class, 'postEdit'])->name('post-edit');
     Route::get('/delete/{id}', [ControllersUserController::class, 'delete'])->name('delete');
+    Route::get('/relations/{id}', [ControllersUserController::class, 'relations']);
 });
 // post
 Route::prefix('/post')->name('post.')->group(function () {

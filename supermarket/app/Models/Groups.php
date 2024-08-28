@@ -10,6 +10,16 @@ class Groups extends Model
 {
     use HasFactory;
     protected $table = "groups";
+
+    public function users()
+    {
+        return $this->hasMany(
+            Users::class,
+            'id_group',
+            'id'
+        );
+    }
+
     public function getAll()
     {
         $groups = DB::table($this->table)->orderBy('name', 'ASC')->get();

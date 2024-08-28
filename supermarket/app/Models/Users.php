@@ -5,11 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\Phone;
 
 class Users extends Model
 {
     protected  $table = "users";
     use HasFactory;
+
+    public function phone()
+    {
+        return $this->hasOne(Phone::class, 'user_id', 'id');
+    }
+    public function group()
+    {
+        return $this->belongsTo(
+            Groups::class,
+            'id_group',
+            'id'
+        );
+    }
 
     public function getAllUsers($filters = [], $keywords = null, $arrSort = null, $perPage = null)
     {

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Groups;
+use App\Models\Phone;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -183,5 +185,37 @@ class UserController extends Controller
             return redirect()->route('user.index')->with('msg', 'không tồn tại id');
         }
         return redirect()->route('user.index')->with('msg', 'Đã xoá thành công ');
+    }
+    public function relations(Request $request)
+    {
+
+        $id = $request->id;
+        // $phoneObject = Users::find($id)->phone;
+        // if (!empty($phoneObject)) {
+        //     dd($phoneObject);
+        // } else {
+        //     dd('Null');
+        // }
+        // $userObject = Phone::where('name', '0915620615')->first()->user;
+        // if (!empty($userObject)) {
+        //     dd($userObject->name);
+        // } else {
+        //     dd('Null');
+        // }
+
+        // $userobject = Users::find($id)->group;
+        // dd($userobject);
+        // if (!empty($userobject)) {
+        //     dd($userobject->name);
+        // } else {
+        //     dd('Null');
+        // }
+
+        $users = Groups::find($id)->users;
+
+        dd($users);
+        foreach ($users as $user) {
+            echo $user->name . $user->email . "</br>";
+        }
     }
 }
