@@ -3,6 +3,7 @@
 use App\Http\Controllers\BladeController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\UserController;
 use App\Http\Controllers\PostController;
@@ -145,4 +146,8 @@ Route::prefix('/post')->name('post.')->group(function () {
     Route::get('/delete/{id}', [PostController::class, 'softDelete'])->name('soft');
     Route::get('/detail', [PostController::class, 'detailSoftDelete'])->name('detail');
     Route::get('/postById/{id}', [PostController::class, 'restoreByIdPost'])->name('postId');
+});
+
+Route::prefix("/category")->name('category.')->group(function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('index');
 });

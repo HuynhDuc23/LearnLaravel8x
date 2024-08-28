@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Categories;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,6 +25,16 @@ class Post extends Model
     // khong tu dong insert data created at va updated at
     //public $timestamps = false;
     protected $dates = ['deleted_at'];
+
+    public function categories()
+    {
+        return $this->belongsToMany(
+            Categories::class,
+            'categories_posts',
+            'posts_id',
+            'categories_id'
+        )->withPivot('created_at');
+    }
     public function insertData()
     {
         // Thêm dữ liệu vào bảng posts
@@ -31,7 +42,6 @@ class Post extends Model
         // $post->title = 'Test insert Data';
         // $post->name = 'Nội dung test';
         // $post->save();
-
         $data = [
             'title' => 'This is a test',
             'name' => 'name'
