@@ -1,1 +1,1 @@
-Learning Laravel core
+Tutorial learning laravel 8x
