@@ -10,30 +10,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
     use HasFactory;
-    use SoftDeletes;
-    // cấu hình table
-    // chữ thường
-    // mỗi chữ cách nhau bởi dấu gạch dưới_
-    // dạng số nhiều
-
-    // config
-    // Tạo Model Post -> thì tên table sẽ là posts
+    // use SoftDeletes;
     protected $table = 'posts';
     protected $primaryKey = 'id';
     protected $keyType = 'int';
     protected $fillable = ['title', 'name']; // cho phép insert vào bảng
+
+
     // khong tu dong insert data created at va updated at
     //public $timestamps = false;
-    protected $dates = ['deleted_at'];
+    // protected $dates = ['deleted_at'];
 
     public function categories()
     {
         return $this->belongsToMany(
             Categories::class,
-            'categories_posts',
+            'categories_post',
             'posts_id',
             'categories_id'
-        )->withPivot('created_at');
+        )->withPivot('created_at', 'status');
     }
     public function insertData()
     {

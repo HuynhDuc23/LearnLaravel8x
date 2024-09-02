@@ -9,15 +9,15 @@ class Categories extends Model
 {
     use HasFactory;
 
-    protected $table = "categories"; // Đặt tên bảng, nếu khác với mặc định
+    protected $table = "categories";
 
     public function posts()
     {
         return $this->belongsToMany(
-            Post::class,            // Model liên quan (Post)
-            'categories_posts',     // Tên bảng trung gian (categories_posts)
-            'categories_id',        // Tên cột khóa ngoại của bảng hiện tại trong bảng trung gian (categories_id)
-            'posts_id'              // Tên cột khóa ngoại của model liên quan trong bảng trung gian (posts_id)
-        )->withPivot('created_at');  // Lấy thêm cột created_at từ bảng trung gian
+            Post::class,
+            'categories_post',
+            'categories_id',
+            'posts_id',
+        )->withPivot('created_at', 'status');
     }
 }

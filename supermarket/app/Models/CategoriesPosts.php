@@ -9,5 +9,5 @@ class CategoriesPosts extends Model
 {
     use HasFactory;
 
-    protected $table = "categories_posts";
+    protected $table = "categories_post";
 }
