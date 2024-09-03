@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Groups;
-use App\Models\Phone;
+use App\Models\Post;
+use App\Models\User;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -188,8 +188,6 @@ class UserController extends Controller
     }
     public function relations(Request $request)
     {
-
-        $id = $request->id;
         // $phoneObject = Users::find($id)->phone;
         // if (!empty($phoneObject)) {
         //     dd($phoneObject);
@@ -211,11 +209,40 @@ class UserController extends Controller
         //     dd('Null');
         // }
 
-        $users = Groups::find($id)->users;
+        // $users = Groups::find($id)->users;
 
-        dd($users);
+        // dd($users);
+        // foreach ($users as $user) {
+        //     echo $user->name . $user->email . "</br>";
+        // }
+
+        // $user =  Users::find(5);
+        // if (!empty($posts)) {
+        //     foreach ($posts->posts as $post) {
+        //         echo $post->title . $post->name . "</br>";
+        //     }
+        // }
+        // \DB::enableQueryLog();
+        // if (isset($user)) {
+        // $posts = $user->posts()->where('status', 0)->get();
+        // $posts = $user->posts; // tra
+        // dd($posts);
+
+        // if (isset($user)) {
+        //     $comments = $user->comments;
+        //     dd($comments);
+        // }
+
+        // $users = Users::has('comments')->get();
+        // dd($users);
+        $users = Users::with('comments')->get(); // load all
+        //dd($users);
         foreach ($users as $user) {
-            echo $user->name . $user->email . "</br>";
+            // $user->comments : comment cua user do
+            foreach ($user->comments as $comment) {
+                echo $comment->content . "</br>";
+            }
         }
     }
+    // dd(\DB::getQueryLog());
 }

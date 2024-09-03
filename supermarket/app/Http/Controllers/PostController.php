@@ -94,4 +94,15 @@ class PostController extends Controller
             return redirect()->back()->with('msg', 'No ID provided.');
         }
     }
+    public function countComments()
+    {
+        // dem bai post ke ca post khong co comment
+        $posts = Post::withCount('comments')->get();
+
+        if (($posts)) {
+            foreach ($posts as $post) {
+                echo "Post ID: " . $post->id . ", Number of comments: " . $post->comments_count . "<br>";
+            }
+        }
+    }
 }

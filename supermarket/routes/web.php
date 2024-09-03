@@ -131,6 +131,7 @@ Route::prefix('/user')->name('user.')->group(function () {
     Route::post('/update', [ControllersUserController::class, 'postEdit'])->name('post-edit');
     Route::get('/delete/{id}', [ControllersUserController::class, 'delete'])->name('delete');
     Route::get('/relations/{id}', [ControllersUserController::class, 'relations']);
+    Route::get('/relations/orm', [ControllersUserController::class, 'relations']);
 });
 // post
 Route::prefix('/post')->name('post.')->group(function () {
@@ -146,6 +147,7 @@ Route::prefix('/post')->name('post.')->group(function () {
     Route::get('/delete/{id}', [PostController::class, 'softDelete'])->name('soft');
     Route::get('/detail', [PostController::class, 'detailSoftDelete'])->name('detail');
     Route::get('/postById/{id}', [PostController::class, 'restoreByIdPost'])->name('postId');
+    Route::get('/count', [PostController::class, 'countComments'])->name('count');
 });
 
 Route::prefix("/category")->name('category.')->group(function () {

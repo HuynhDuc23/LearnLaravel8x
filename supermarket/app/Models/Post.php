@@ -43,4 +43,9 @@ class Post extends Model
         ];
         Post::create($data);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'post_id', 'id');
+    }
 }

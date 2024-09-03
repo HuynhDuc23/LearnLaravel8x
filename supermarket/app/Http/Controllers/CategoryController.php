@@ -16,7 +16,6 @@ class CategoryController extends Controller
             echo $post->pivot->created_at;
             echo " ";
             echo $post->pivot->status;
-
             echo "<br>";
         }
     }
