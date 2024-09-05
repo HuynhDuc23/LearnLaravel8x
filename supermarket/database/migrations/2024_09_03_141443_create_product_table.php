@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 200); // do dai la 200 mac dinh la 255 , ten fields la : name
             $table->text('description');
             $table->timestamps(); // auto created_at va updated_at => timestamp
+            $table->text('content');
         });
     }
 
