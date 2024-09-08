@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('product', function (Blueprint $table) {
-            $table->string('addnew', 200)->nullable();
-            $table->string('descriptionnew', 255)->nullable();
-            $table->string('descriptionnew2', 255)->nullable();
-            $table->string('descriptionnew3', 255)->nullable();
-            $table->string('descriptionnew4', 255)->nullable();
-        });
+        if (Schema::hasTable('product')) {
+            Schema::table('product', function (Blueprint $table) {
+                $table->string('addnew', 200)->nullable();
+                $table->string('descriptionnew', 255)->nullable();
+                $table->string('descriptionnew2', 255)->nullable();
+                $table->string('descriptionnew3', 255)->nullable();
+                $table->string('descriptionnew4', 255)->nullable();
+            });
+        }
     }
 
     /**
