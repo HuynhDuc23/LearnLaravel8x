@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Models\Data as ModelsData;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RoleSeeder extends Seeder
+class Data extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Role::factory()->count(5)->hasDatas(rand(1, 3))->create();
+        ModelsData::factory()->count(5)->hasRoles(rand(1, 3))->create();
     }
 }
