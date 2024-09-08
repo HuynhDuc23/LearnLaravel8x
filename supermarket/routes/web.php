@@ -8,6 +8,7 @@ use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController as ControllersUserController;
+use Faker\Factory;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 
@@ -152,4 +153,8 @@ Route::prefix('/post')->name('post.')->group(function () {
 
 Route::prefix("/category")->name('category.')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('index');
+});
+Route::get('/faker', function () {
+    $faker = Factory::create();
+    dd($faker->email);
 });
